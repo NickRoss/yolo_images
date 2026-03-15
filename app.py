@@ -19,6 +19,8 @@ IMMICH_URL = os.environ["IMMICH_URL"].rstrip("/")
 IMMICH_API_KEY = os.environ["IMMICH_API_KEY"]
 EXIFTOOL_URL = os.environ["EXIFTOOL_URL"].rstrip("/")
 EXIFTOOL_API_KEY = os.environ["EXIFTOOL_API_KEY"]
+IMMICH_PHOTOS_PREFIX = os.environ.get("IMMICH_PHOTOS_PREFIX", "")
+EXIFTOOL_PHOTOS_PREFIX = os.environ.get("EXIFTOOL_PHOTOS_PREFIX", "")
 SAVED_LOCATIONS_FILE = Path("saved_locations.json")
 
 app = FastAPI()
@@ -30,6 +32,27 @@ def immich_client() -> httpx.AsyncClient:
     return httpx.AsyncClient(
         base_url=IMMICH_URL, headers=immich_headers, timeout=30.0
     )
+
+
+# ── Health ────────────────────────────────────────────────────────────────────
+
+
+@app.get("/api/health")
+async def health():
+    status = {"immich": "unknown", "exiftool": "unknown"}
+    async with immich_client() as client:
+        try:
+            r = await client.get("/api/server/version")
+            status["immich"] = "ok" if r.status_code == 200 else f"error ({r.status_code})"
+        except Exception as e:
+            status["immich"] = f"error ({e})"
+    async with httpx.AsyncClient(timeout=5.0) as client:
+        try:
+            r = await client.get(f"{EXIFTOOL_URL}/health")
+            status["exiftool"] = "ok" if r.status_code == 200 else f"error ({r.status_code})"
+        except Exception as e:
+            status["exiftool"] = f"error ({e})"
+    return status
 
 
 # ── Assets ───────────────────────────────────────────────────────────────────
@@ -219,12 +242,17 @@ async def apply_location(req: ApplyRequest):
                 errors.append(f"{asset_id}: no originalPath")
                 continue
 
+            # Remap path if prefixes are configured
+            file_path = original_path
+            if IMMICH_PHOTOS_PREFIX and EXIFTOOL_PHOTOS_PREFIX:
+                file_path = original_path.replace(IMMICH_PHOTOS_PREFIX, EXIFTOOL_PHOTOS_PREFIX, 1)
+
             # Write GPS via exiftool service
             exif_resp = await exif_client.post(
                 f"{EXIFTOOL_URL}/write-gps",
                 json={
                     "api_key": EXIFTOOL_API_KEY,
-                    "file_path": original_path,
+                    "file_path": file_path,
                     "latitude": req.latitude,
                     "longitude": req.longitude,
                 },

@@ -11,7 +11,33 @@ header {
     padding: 1rem 2rem;
     background: #16213e;
     border-bottom: 1px solid #0f3460;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.health-indicators { display: flex; gap: 0.75rem; }
+
+.health-dot {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.health-dot::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.health-dot.ok::before { background: #27ae60; }
+.health-dot.error::before { background: #e74c3c; }
+.health-dot.unknown::before { background: #7f8c8d; }
 
 h1 { font-size: 1.3rem; font-weight: 600; }
 

@@ -333,6 +333,27 @@ btnApply.addEventListener("click", async () => {
     }
 });
 
+// ── Health ─────────────────────────────────────────────────────────────────
+
+async function checkHealth() {
+    try {
+        const resp = await fetch("/api/health");
+        const status = await resp.json();
+        for (const [service, state] of Object.entries(status)) {
+            const el = document.getElementById(`health-${service}`);
+            if (el) {
+                el.className = "health-dot " + (state === "ok" ? "ok" : "error");
+            }
+        }
+    } catch {
+        document.getElementById("health-immich").className = "health-dot error";
+        document.getElementById("health-exiftool").className = "health-dot error";
+    }
+}
+
+checkHealth();
+setInterval(checkHealth, 30000);
+
 // ── Init ──────────────────────────────────────────────────────────────────
 
 loadAssets(1);
