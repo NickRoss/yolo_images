@@ -14,6 +14,15 @@ down:
 logs:
 	docker compose logs -f
 
+# ── Screenshots ──────────────────────────────────────────────────────────
+
+screenshot:
+	mkdir -p docs
+	docker run --rm --network host -v $(PWD)/docs:/screenshots \
+		mcr.microsoft.com/playwright:v1.58.2-noble \
+		npx playwright screenshot --full-page --wait-for-timeout 5000 \
+		--viewport-size 1280,800 http://localhost:8000 /screenshots/grid-view.png
+
 # ── Exiftool service (run on Immich server) ──────────────────────────────
 
 exiftool-build:
