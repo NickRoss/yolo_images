@@ -168,6 +168,14 @@ button:disabled { opacity: 0.4; cursor: default; }
 
 #btn-apply:hover:not(:disabled) { background: #c0392b; }
 
+#btn-delete {
+    background: #7f8c8d;
+    border-color: #7f8c8d;
+    font-weight: 600;
+}
+
+#btn-delete:hover:not(:disabled) { background: #e74c3c; border-color: #e74c3c; }
+
 #btn-delete-saved {
     padding: 0.5rem 0.6rem;
     font-size: 1rem;
@@ -278,4 +286,60 @@ button:disabled { opacity: 0.4; cursor: default; }
     padding: 4rem;
     color: #8899aa;
     font-size: 1.1rem;
+}
+
+/* ── Progress overlay ─────────────────────────────────────────────────── */
+
+.progress-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+}
+
+.progress-overlay.hidden { display: none; }
+
+.progress-box {
+    background: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 8px;
+    padding: 2rem 3rem;
+    text-align: center;
+    min-width: 300px;
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 4px solid #0f3460;
+    border-top-color: #e94560;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#progress-text {
+    font-size: 0.95rem;
+    color: #e0e0e0;
+    margin-bottom: 0.75rem;
+}
+
+.progress-bar-track {
+    height: 6px;
+    background: #0f3460;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: #e94560;
+    width: 0%;
+    transition: width 0.3s;
+    border-radius: 3px;
 }

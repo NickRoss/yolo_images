@@ -5,17 +5,20 @@ const searchInput = document.getElementById("location-search");
 const searchResults = document.getElementById("search-results");
 const savedSelect = document.getElementById("saved-locations");
 const btnApply = document.getElementById("btn-apply");
+const btnDelete = document.getElementById("btn-delete");
 const btnSelectAll = document.getElementById("btn-select-all");
 const btnDeselectAll = document.getElementById("btn-deselect-all");
 const btnSaveLocation = document.getElementById("btn-save-location");
 const btnDeleteSaved = document.getElementById("btn-delete-saved");
 const saveNameInput = document.getElementById("save-name");
-const selectedCountEl = document.getElementById("selected-count");
 const statusText = document.getElementById("status-text");
 const pageInfo = document.getElementById("page-info");
 const btnPrev = document.getElementById("btn-prev");
 const btnNext = document.getElementById("btn-next");
 const toastEl = document.getElementById("toast");
+const progressOverlay = document.getElementById("progress-overlay");
+const progressText = document.getElementById("progress-text");
+const progressBar = document.getElementById("progress-bar");
 
 let currentPage = 1;
 let assets = [];
@@ -29,6 +32,19 @@ function toast(msg, isError = false) {
     toastEl.textContent = msg;
     toastEl.className = "toast" + (isError ? " error" : "");
     setTimeout(() => toastEl.classList.add("hidden"), 3000);
+}
+
+// ── Progress ──────────────────────────────────────────────────────────────
+
+function showProgress(text, current, total) {
+    progressOverlay.classList.remove("hidden");
+    progressText.textContent = `${text} (${current}/${total})`;
+    progressBar.style.width = `${(current / total) * 100}%`;
+}
+
+function hideProgress() {
+    progressOverlay.classList.add("hidden");
+    progressBar.style.width = "0%";
 }
 
 // ── Assets ────────────────────────────────────────────────────────────────
@@ -115,8 +131,10 @@ function updateSelection() {
 }
 
 function updateSelectedCount() {
-    selectedCountEl.textContent = selected.size;
+    btnApply.textContent = `Apply to ${selected.size} selected`;
     btnApply.disabled = selected.size === 0 || (!latInput.value && !lonInput.value);
+    btnDelete.textContent = `Delete ${selected.size} selected`;
+    btnDelete.disabled = selected.size === 0;
 }
 
 btnSelectAll.addEventListener("click", () => {
@@ -288,25 +306,52 @@ btnApply.addEventListener("click", async () => {
         return;
     }
 
+    const ids = Array.from(selected);
     btnApply.disabled = true;
-    btnApply.textContent = "Applying...";
+    showProgress("Applying GPS", 0, ids.length);
 
     try {
         const resp = await fetch("/api/apply-location", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                assetIds: Array.from(selected),
-                latitude: lat,
-                longitude: lon,
-            }),
+            body: JSON.stringify({ assetIds: ids, latitude: lat, longitude: lon }),
         });
-        if (!resp.ok) {
-            const err = await resp.json();
-            throw new Error(err.detail || `HTTP ${resp.status}`);
+
+        // Handle streaming progress
+        if (resp.headers.get("content-type")?.includes("application/x-ndjson")) {
+            const reader = resp.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = "";
+            let lastResult = null;
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split("\n");
+                buffer = lines.pop();
+                for (const line of lines) {
+                    if (!line.trim()) continue;
+                    const msg = JSON.parse(line);
+                    if (msg.type === "progress") {
+                        showProgress("Applying GPS", msg.current, msg.total);
+                    } else if (msg.type === "done") {
+                        lastResult = msg;
+                    } else if (msg.type === "error") {
+                        throw new Error(msg.detail);
+                    }
+                }
+            }
+            if (lastResult) {
+                toast(`Updated ${lastResult.updated} image(s)`);
+            }
+        } else {
+            if (!resp.ok) {
+                const err = await resp.json();
+                throw new Error(err.detail || `HTTP ${resp.status}`);
+            }
+            const data = await resp.json();
+            toast(`Updated ${data.updated} image(s)`);
         }
-        const data = await resp.json();
-        toast(`Updated ${data.updated} image(s)`);
 
         // Auto-save location if name is provided
         const name = saveNameInput.value.trim();
@@ -328,8 +373,74 @@ btnApply.addEventListener("click", async () => {
     } catch (e) {
         toast(`Failed: ${e.message}`, true);
     } finally {
-        btnApply.textContent = `Apply to ${selected.size} selected`;
+        hideProgress();
+        updateSelectedCount();
         btnApply.disabled = selected.size === 0;
+    }
+});
+
+// ── Delete ────────────────────────────────────────────────────────────────
+
+btnDelete.addEventListener("click", async () => {
+    if (selected.size === 0) return;
+    if (!confirm(`Delete ${selected.size} image(s)? Files will be moved to trash.`)) return;
+
+    const ids = Array.from(selected);
+    btnDelete.disabled = true;
+    showProgress("Deleting", 0, ids.length);
+
+    try {
+        const resp = await fetch("/api/delete-assets", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ assetIds: ids }),
+        });
+
+        if (resp.headers.get("content-type")?.includes("application/x-ndjson")) {
+            const reader = resp.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = "";
+            let lastResult = null;
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split("\n");
+                buffer = lines.pop();
+                for (const line of lines) {
+                    if (!line.trim()) continue;
+                    const msg = JSON.parse(line);
+                    if (msg.type === "progress") {
+                        showProgress("Deleting", msg.current, msg.total);
+                    } else if (msg.type === "done") {
+                        lastResult = msg;
+                    } else if (msg.type === "error") {
+                        throw new Error(msg.detail);
+                    }
+                }
+            }
+            if (lastResult) {
+                toast(`Deleted ${lastResult.deleted} image(s)`);
+            }
+        } else {
+            if (!resp.ok) {
+                const err = await resp.json();
+                throw new Error(err.detail || `HTTP ${resp.status}`);
+            }
+            const data = await resp.json();
+            toast(`Deleted ${data.deleted} image(s)`);
+        }
+
+        assets = assets.filter((a) => !selected.has(a.id));
+        selected.clear();
+        renderGrid();
+        updateSelectedCount();
+        statusText.textContent = `${assets.length} image(s) remaining`;
+    } catch (e) {
+        toast(`Failed: ${e.message}`, true);
+    } finally {
+        hideProgress();
+        btnDelete.disabled = selected.size === 0;
     }
 });
 

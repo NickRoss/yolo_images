@@ -9,3 +9,7 @@ services:
       - ALLOWED_BASE=/mnt/barracuda/plex/Personal/Photos/Import-Staging
     volumes:
       - /mnt/barracuda/plex/Personal/Photos/Import-Staging:/mnt/barracuda/plex/Personal/Photos/Import-Staging
+      - exiftool-data:/data
+
+volumes:
+  exiftool-data:

@@ -6,7 +6,7 @@ from pathlib import Path
 import httpx
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query
-from fastapi.responses import Response
+from fastapi.responses import Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -227,53 +227,119 @@ class ApplyRequest(BaseModel):
     longitude: float
 
 
+def _remap_path(original_path: str) -> str:
+    if IMMICH_PHOTOS_PREFIX and EXIFTOOL_PHOTOS_PREFIX:
+        return original_path.replace(IMMICH_PHOTOS_PREFIX, EXIFTOOL_PHOTOS_PREFIX, 1)
+    return original_path
+
+
 @app.post("/api/apply-location")
 async def apply_location(req: ApplyRequest):
-    errors = []
-    async with immich_client() as immich, httpx.AsyncClient(timeout=30.0) as exif_client:
-        for asset_id in req.assetIds:
-            # Get the original file path from Immich
-            resp = await immich.get(f"/api/assets/{asset_id}")
-            if resp.status_code != 200:
-                errors.append(f"{asset_id}: couldn't fetch asset info")
-                continue
-            original_path = resp.json().get("originalPath", "")
-            if not original_path:
-                errors.append(f"{asset_id}: no originalPath")
-                continue
+    async def stream():
+        errors = []
+        total = len(req.assetIds)
+        async with immich_client() as immich, httpx.AsyncClient(timeout=30.0) as exif_client:
+            for i, asset_id in enumerate(req.assetIds):
+                yield json.dumps({"type": "progress", "current": i + 1, "total": total}) + "\n"
 
-            # Remap path if prefixes are configured
-            file_path = original_path
-            if IMMICH_PHOTOS_PREFIX and EXIFTOOL_PHOTOS_PREFIX:
-                file_path = original_path.replace(IMMICH_PHOTOS_PREFIX, EXIFTOOL_PHOTOS_PREFIX, 1)
+                resp = await immich.get(f"/api/assets/{asset_id}")
+                if resp.status_code != 200:
+                    errors.append(f"{asset_id}: couldn't fetch asset info")
+                    continue
+                original_path = resp.json().get("originalPath", "")
+                if not original_path:
+                    errors.append(f"{asset_id}: no originalPath")
+                    continue
 
-            # Write GPS via exiftool service
-            exif_resp = await exif_client.post(
-                f"{EXIFTOOL_URL}/write-gps",
-                json={
-                    "api_key": EXIFTOOL_API_KEY,
-                    "file_path": file_path,
-                    "latitude": req.latitude,
-                    "longitude": req.longitude,
-                },
-            )
-            if exif_resp.status_code != 200:
-                errors.append(f"{asset_id}: exiftool error {exif_resp.text}")
-            else:
-                logger.info("Wrote GPS to %s: %s", original_path, exif_resp.json())
+                file_path = _remap_path(original_path)
 
-    if errors:
-        logger.error("Apply errors: %s", errors)
-        raise HTTPException(status_code=500, detail=f"Failed: {'; '.join(errors)}")
+                exif_resp = await exif_client.post(
+                    f"{EXIFTOOL_URL}/write-gps",
+                    json={
+                        "api_key": EXIFTOOL_API_KEY,
+                        "file_path": file_path,
+                        "latitude": req.latitude,
+                        "longitude": req.longitude,
+                    },
+                )
+                if exif_resp.status_code != 200:
+                    errors.append(f"{asset_id}: exiftool error {exif_resp.text}")
+                else:
+                    logger.info("Wrote GPS to %s: %s", original_path, exif_resp.json())
 
-    # Trigger Immich library scan so it picks up the new EXIF data
-    async with immich_client() as immich:
-        libs = await immich.get("/api/libraries")
-        for lib in libs.json():
-            await immich.post(f"/api/libraries/{lib['id']}/scan")
-            logger.info("Triggered scan for library %s", lib["id"])
+        if errors:
+            logger.error("Apply errors: %s", errors)
+            yield json.dumps({"type": "error", "detail": f"Failed: {'; '.join(errors)}"}) + "\n"
+            return
 
-    return {"updated": len(req.assetIds)}
+        # Trigger Immich library scan
+        async with immich_client() as immich:
+            libs = await immich.get("/api/libraries")
+            for lib in libs.json():
+                await immich.post(f"/api/libraries/{lib['id']}/scan")
+                logger.info("Triggered scan for library %s", lib["id"])
+
+        yield json.dumps({"type": "done", "updated": total}) + "\n"
+
+    return StreamingResponse(stream(), media_type="application/x-ndjson")
+
+
+# ── Delete assets ────────────────────────────────────────────────────────────
+
+
+class DeleteRequest(BaseModel):
+    assetIds: list[str]
+
+
+@app.post("/api/delete-assets")
+async def delete_assets(req: DeleteRequest):
+    async def stream():
+        errors = []
+        total = len(req.assetIds)
+        async with immich_client() as immich, httpx.AsyncClient(timeout=30.0) as exif_client:
+            for i, asset_id in enumerate(req.assetIds):
+                yield json.dumps({"type": "progress", "current": i + 1, "total": total}) + "\n"
+
+                # Get file path from Immich
+                resp = await immich.get(f"/api/assets/{asset_id}")
+                if resp.status_code != 200:
+                    errors.append(f"{asset_id}: couldn't fetch asset info")
+                    continue
+                original_path = resp.json().get("originalPath", "")
+                if not original_path:
+                    errors.append(f"{asset_id}: no originalPath")
+                    continue
+
+                file_path = _remap_path(original_path)
+
+                # Move file to trash via exiftool service
+                trash_resp = await exif_client.post(
+                    f"{EXIFTOOL_URL}/trash-file",
+                    json={
+                        "api_key": EXIFTOOL_API_KEY,
+                        "file_path": file_path,
+                    },
+                )
+                if trash_resp.status_code != 200:
+                    errors.append(f"{asset_id}: trash error {trash_resp.text}")
+                else:
+                    logger.info("Trashed %s", original_path)
+
+        if errors:
+            logger.error("Delete errors: %s", errors)
+            yield json.dumps({"type": "error", "detail": f"Failed: {'; '.join(errors)}"}) + "\n"
+            return
+
+        # Trigger Immich library scan to pick up removed files
+        async with immich_client() as immich:
+            libs = await immich.get("/api/libraries")
+            for lib in libs.json():
+                await immich.post(f"/api/libraries/{lib['id']}/scan")
+                logger.info("Triggered scan for library %s", lib["id"])
+
+        yield json.dumps({"type": "done", "deleted": total}) + "\n"
+
+    return StreamingResponse(stream(), media_type="application/x-ndjson")
 
 
 # ── Static files (must be last) ──────────────────────────────────────────────

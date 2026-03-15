@@ -48,7 +48,8 @@
             </div>
 
             <div class="action-group">
-                <button id="btn-apply" disabled>Apply to <span id="selected-count">0</span> selected</button>
+                <button id="btn-apply" disabled>Apply to 0 selected</button>
+                <button id="btn-delete" disabled>Delete 0 selected</button>
             </div>
         </div>
 
@@ -65,6 +66,14 @@
         <button id="btn-prev" disabled>&larr; Previous</button>
         <span id="page-info">Page 1</span>
         <button id="btn-next">Next &rarr;</button>
+    </div>
+
+    <div id="progress-overlay" class="progress-overlay hidden">
+        <div class="progress-box">
+            <div class="spinner"></div>
+            <div id="progress-text">Processing...</div>
+            <div class="progress-bar-track"><div id="progress-bar" class="progress-bar-fill"></div></div>
+        </div>
     </div>
 
     <div id="toast" class="toast hidden"></div>
