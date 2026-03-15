@@ -1,0 +1,10 @@
+services:
+  exiftool:
+    build: .
+    ports:
+      - "8050:8050"
+    environment:
+      - EXIFTOOL_API_KEY=${EXIFTOOL_API_KEY}
+      - ALLOWED_BASE=/photos
+    volumes:
+      - ${PHOTOS_PATH:-/mnt/external-photos}:/photos
