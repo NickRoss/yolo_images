@@ -3,8 +3,9 @@ services:
     build: .
     ports:
       - "8050:8050"
+    env_file:
+      - ../.env
     environment:
-      - EXIFTOOL_API_KEY=${EXIFTOOL_API_KEY}
-      - ALLOWED_BASE=/mnt/external-photos
+      - ALLOWED_BASE=/mnt/barracuda/plex/Personal/Photos/Import-Staging
     volumes:
-      - /mnt/external-photos:/mnt/external-photos
+      - /mnt/barracuda/plex/Personal/Photos/Import-Staging:/mnt/barracuda/plex/Personal/Photos/Import-Staging
