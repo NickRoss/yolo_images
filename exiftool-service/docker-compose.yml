@@ -5,6 +5,6 @@ services:
       - "8050:8050"
     environment:
       - EXIFTOOL_API_KEY=${EXIFTOOL_API_KEY}
-      - ALLOWED_BASE=/photos
+      - ALLOWED_BASE=/mnt/external-photos
     volumes:
-      - ${PHOTOS_PATH:-/mnt/external-photos}:/photos
+      - /mnt/external-photos:/mnt/external-photos

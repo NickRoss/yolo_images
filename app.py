@@ -19,9 +19,6 @@ IMMICH_URL = os.environ["IMMICH_URL"].rstrip("/")
 IMMICH_API_KEY = os.environ["IMMICH_API_KEY"]
 EXIFTOOL_URL = os.environ["EXIFTOOL_URL"].rstrip("/")
 EXIFTOOL_API_KEY = os.environ["EXIFTOOL_API_KEY"]
-# Maps the Immich originalPath prefix to the exiftool service mount
-IMMICH_PHOTOS_PREFIX = os.environ.get("IMMICH_PHOTOS_PREFIX", "/mnt/external-photos")
-EXIFTOOL_PHOTOS_PREFIX = os.environ.get("EXIFTOOL_PHOTOS_PREFIX", "/photos")
 SAVED_LOCATIONS_FILE = Path("saved_locations.json")
 
 app = FastAPI()
@@ -222,15 +219,12 @@ async def apply_location(req: ApplyRequest):
                 errors.append(f"{asset_id}: no originalPath")
                 continue
 
-            # Remap path from Immich's mount to exiftool service's mount
-            exif_path = original_path.replace(IMMICH_PHOTOS_PREFIX, EXIFTOOL_PHOTOS_PREFIX, 1)
-
             # Write GPS via exiftool service
             exif_resp = await exif_client.post(
                 f"{EXIFTOOL_URL}/write-gps",
                 json={
                     "api_key": EXIFTOOL_API_KEY,
-                    "file_path": exif_path,
+                    "file_path": original_path,
                     "latitude": req.latitude,
                     "longitude": req.longitude,
                 },
