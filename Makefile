@@ -1,12 +1,16 @@
-.PHONY: up down build logs exiftool-up exiftool-down exiftool-build exiftool-logs
+.PHONY: up down logs exiftool-up exiftool-down exiftool-logs screenshot
+
+APP_SRC := app.py pyproject.toml Dockerfile docker-compose.yml $(wildcard static/*)
+EXIFTOOL_SRC := $(wildcard exiftool-service/*)
 
 # ── Main app (run locally) ───────────────────────────────────────────────
 
-build:
+.build: $(APP_SRC)
 	docker compose build
+	@touch .build
 
-up:
-	docker compose up --build -d
+up: .build
+	docker compose up -d
 
 down:
 	docker compose down
@@ -16,7 +20,7 @@ logs:
 
 # ── Screenshots ──────────────────────────────────────────────────────────
 
-screenshot:
+screenshot: up
 	mkdir -p docs
 	docker run --rm --network host -v $(PWD)/docs:/screenshots \
 		mcr.microsoft.com/playwright:v1.58.2-noble \
@@ -25,14 +29,20 @@ screenshot:
 
 # ── Exiftool service (run on Immich server) ──────────────────────────────
 
-exiftool-build:
+.exiftool-build: $(EXIFTOOL_SRC)
 	docker compose -f exiftool-service/docker-compose.yml build
+	@touch .exiftool-build
 
-exiftool-up:
-	docker compose -f exiftool-service/docker-compose.yml up --build -d
+exiftool-up: .exiftool-build
+	docker compose -f exiftool-service/docker-compose.yml up -d
 
 exiftool-down:
 	docker compose -f exiftool-service/docker-compose.yml down
 
 exiftool-logs:
 	docker compose -f exiftool-service/docker-compose.yml logs -f
+
+# ── Cleanup ──────────────────────────────────────────────────────────────
+
+clean:
+	rm -f .build .exiftool-build

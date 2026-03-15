@@ -1,6 +1,10 @@
 # App data
 saved_locations.json
 
+# Build markers
+.build
+.exiftool-build
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
