@@ -1,0 +1,850 @@
+[
+  {
+    "directory": "01 - Italy 2001",
+    "date": "2001",
+    "date_precision": "year",
+    "location": "Italy",
+    "lat": 42.638426,
+    "lon": 12.674297
+  },
+  {
+    "directory": "02 - Providence 1998",
+    "date": "1998",
+    "date_precision": "year",
+    "location": "Providence, RI",
+    "lat": 41.823989,
+    "lon": -71.412834
+  },
+  {
+    "directory": "03 - Grand Canyon",
+    "date": null,
+    "date_precision": null,
+    "location": "Grand Canyon, AZ",
+    "lat": 36.098041,
+    "lon": -112.096279
+  },
+  {
+    "directory": "04 - Yosemite 2001",
+    "date": "2001",
+    "date_precision": "year",
+    "location": "Yosemite, CA",
+    "lat": 37.8393,
+    "lon": -119.516464
+  },
+  {
+    "directory": "06 - Pre-divorce Grandmother",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "1998_ 2002 Old Pictures",
+    "date": "1998-2002",
+    "date_precision": "range",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2001 Banff Trip",
+    "date": "2001",
+    "date_precision": "year",
+    "location": "Banff, AB, Canada",
+    "lat": 51.175076,
+    "lon": -115.572077
+  },
+  {
+    "directory": "2002 Trip to MI",
+    "date": "2002",
+    "date_precision": "year",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2004_07_02 Tennessee",
+    "date": "2004-07-02",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2004_08_03 Driving Across the Country with Tmok",
+    "date": "2004-08-03",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2004_09_18 Biking up Potomac",
+    "date": "2004-09-18",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2004_11_13 Vermont",
+    "date": "2004-11-13",
+    "date_precision": "day",
+    "location": "Vermont",
+    "lat": 44.599072,
+    "lon": -72.500261
+  },
+  {
+    "directory": "2004_12_25 Rickett's Glenn in Winter",
+    "date": "2004-12-25",
+    "date_precision": "day",
+    "location": "Ricketts Glen, PA",
+    "lat": 41.332266,
+    "lon": -76.279368
+  },
+  {
+    "directory": "2004_12_29 Canadia",
+    "date": "2004-12-29",
+    "date_precision": "day",
+    "location": "Canada",
+    "lat": 61.066692,
+    "lon": -107.991707
+  },
+  {
+    "directory": "2005_01_25 House in SD When Other Person Lived There",
+    "date": "2005-01-25",
+    "date_precision": "day",
+    "location": "San Diego, CA",
+    "lat": 32.71742,
+    "lon": -117.162772
+  },
+  {
+    "directory": "2005_02_08 Albarcore",
+    "date": "2005-02-08",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2005_02_19 New Apt in SD",
+    "date": "2005-02-19",
+    "date_precision": "day",
+    "location": "San Diego, CA",
+    "lat": 32.71742,
+    "lon": -117.162772
+  },
+  {
+    "directory": "2005_ 2006 Random SD Pics",
+    "date": "2005-2006",
+    "date_precision": "range",
+    "location": "San Diego, CA",
+    "lat": 32.71742,
+    "lon": -117.162772
+  },
+  {
+    "directory": "2006_02_18 Yuma",
+    "date": "2006-02-18",
+    "date_precision": "day",
+    "location": "Yuma, AZ",
+    "lat": 32.725422,
+    "lon": -114.619809
+  },
+  {
+    "directory": "2006_02_19 Scottsdale AZ",
+    "date": "2006-02-19",
+    "date_precision": "day",
+    "location": "Scottsdale, AZ",
+    "lat": 33.494219,
+    "lon": -111.926018
+  },
+  {
+    "directory": "2006_02_20 AZ",
+    "date": "2006-02-20",
+    "date_precision": "day",
+    "location": "Arizona",
+    "lat": 34.395342,
+    "lon": -111.763275
+  },
+  {
+    "directory": "2006_04 SD Visit With Dad",
+    "date": "2006-04",
+    "date_precision": "month",
+    "location": "San Diego, CA",
+    "lat": 32.71742,
+    "lon": -117.162772
+  },
+  {
+    "directory": "2006_07_02 Hi",
+    "date": "2006-07-02",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2006_08_15 Some Blow Hole, Possibly Mexico",
+    "date": "2006-08-15",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2006_09_15 Kings Canyon",
+    "date": "2006-09-15",
+    "date_precision": "day",
+    "location": "Kings Canyon, CA",
+    "lat": 36.786676,
+    "lon": -118.619144
+  },
+  {
+    "directory": "2006_09_16 Kings Canyon",
+    "date": "2006-09-16",
+    "date_precision": "day",
+    "location": "Kings Canyon, CA",
+    "lat": 36.786676,
+    "lon": -118.619144
+  },
+  {
+    "directory": "2006_09_17 Sequoia",
+    "date": "2006-09-17",
+    "date_precision": "day",
+    "location": "Sequoia National Park, CA",
+    "lat": 36.495841,
+    "lon": -118.559919
+  },
+  {
+    "directory": "2006_09_26-27 Yosemite with Davis Friends",
+    "date": "2006-09-26",
+    "date_precision": "day",
+    "location": "Yosemite, CA",
+    "lat": 37.8393,
+    "lon": -119.516464
+  },
+  {
+    "directory": "2006_11_14 Busted Ankle",
+    "date": "2006-11-14",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2007_01_13 Mix Road Biking",
+    "date": "2007-01-13",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2007_01_14 Marin Mtn Biking",
+    "date": "2007-01-14",
+    "date_precision": "day",
+    "location": "Marin County, CA",
+    "lat": 38.040914,
+    "lon": -122.619964
+  },
+  {
+    "directory": "2007_03_25 Random of LA",
+    "date": "2007-03-25",
+    "date_precision": "day",
+    "location": "Los Angeles, CA",
+    "lat": 34.053691,
+    "lon": -118.242766
+  },
+  {
+    "directory": "2007_04_01 Berkeley with Ronny and Co",
+    "date": "2007-04-01",
+    "date_precision": "day",
+    "location": "Berkeley, CA",
+    "lat": 37.870839,
+    "lon": -122.272863
+  },
+  {
+    "directory": "2007_04_27 Phone Photos of GSW Game",
+    "date": "2007-04-27",
+    "date_precision": "day",
+    "location": "Oracle Arena, Oakland, CA",
+    "lat": 37.750273,
+    "lon": -122.202932
+  },
+  {
+    "directory": "2007_05 Tmok Graduation and Yosemite Backpacking",
+    "date": "2007-05",
+    "date_precision": "month",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2007_07_03 SF Apt",
+    "date": "2007-07-03",
+    "date_precision": "day",
+    "location": "San Francisco, CA",
+    "lat": 37.787936,
+    "lon": -122.40752
+  },
+  {
+    "directory": "2007_12 Winter Pictures",
+    "date": "2007-12",
+    "date_precision": "month",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2007_ - 2008 Pictures From Phone",
+    "date": "2007-2008",
+    "date_precision": "range",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2007_ Bad Dates",
+    "date": "2007",
+    "date_precision": "year",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2008_04 Visit With Dad",
+    "date": "2008-04",
+    "date_precision": "month",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2008_06_15 Malibu Surfing Butcher is Broken",
+    "date": "2008-06-15",
+    "date_precision": "day",
+    "location": "Malibu, CA",
+    "lat": 34.035591,
+    "lon": -118.689423
+  },
+  {
+    "directory": "2008_06_21 Sacramento",
+    "date": "2008-06-21",
+    "date_precision": "day",
+    "location": "Sacramento, CA",
+    "lat": 38.581061,
+    "lon": -121.493895
+  },
+  {
+    "directory": "2008_07_05 Tmok Friend John in SF",
+    "date": "2008-07-05",
+    "date_precision": "day",
+    "location": "San Francisco, CA",
+    "lat": 37.787936,
+    "lon": -122.40752
+  },
+  {
+    "directory": "2008_07_14 Las Vegas Nathan NBA Summer League",
+    "date": "2008-07-14",
+    "date_precision": "day",
+    "location": "Las Vegas, NV",
+    "lat": 36.167426,
+    "lon": -115.148413
+  },
+  {
+    "directory": "2008_07_24 Hawaii",
+    "date": "2008-07-24",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2008_12_6 Dana Point Sailing (Big Dog)",
+    "date": "2008-12-06",
+    "date_precision": "day",
+    "location": "Dana Point, CA",
+    "lat": 33.466972,
+    "lon": -117.698108
+  },
+  {
+    "directory": "2009_02 CYC Midwinters Sailing",
+    "date": "2009-02",
+    "date_precision": "month",
+    "location": "Marina Del Rey, CA",
+    "lat": 33.977685,
+    "lon": -118.448647
+  },
+  {
+    "directory": "2009_04 Family Visit",
+    "date": "2009-04",
+    "date_precision": "month",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2009_07 Sailing Pics",
+    "date": "2009-07",
+    "date_precision": "month",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2009_09 Sailing J24 Nationals",
+    "date": "2009-09",
+    "date_precision": "month",
+    "location": "Berkeley, CA",
+    "lat": 37.870839,
+    "lon": -122.272863
+  },
+  {
+    "directory": "2009_10 Morro Bay",
+    "date": "2009-10",
+    "date_precision": "month",
+    "location": "Morro Bay, CA",
+    "lat": 35.365808,
+    "lon": -120.849901
+  },
+  {
+    "directory": "2009_12 Big Dog Dana Point",
+    "date": "2009-12",
+    "date_precision": "month",
+    "location": "Dana Point, CA",
+    "lat": 33.466972,
+    "lon": -117.698108
+  },
+  {
+    "directory": "2010_01 Denver and Boulder",
+    "date": "2010-01",
+    "date_precision": "month",
+    "location": "Denver, CO",
+    "lat": 39.739236,
+    "lon": -104.984862
+  },
+  {
+    "directory": "2010_04 -- Hiking Mt. Tyndall Failure",
+    "date": "2010-04",
+    "date_precision": "month",
+    "location": "Mt. Tyndall, CA",
+    "lat": 36.65573,
+    "lon": -118.337293
+  },
+  {
+    "directory": "2010_04 -- Tmok Award at CYD",
+    "date": "2010-04",
+    "date_precision": "month",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2010_05_14 Seattle Sylvia Wedding",
+    "date": "2010-05-14",
+    "date_precision": "day",
+    "location": "Seattle, WA",
+    "lat": 47.603832,
+    "lon": -122.330062
+  },
+  {
+    "directory": "2010_06_25 Long Beach Race Week",
+    "date": "2010-06-25",
+    "date_precision": "day",
+    "location": "Long Beach, CA",
+    "lat": 33.769016,
+    "lon": -118.191604
+  },
+  {
+    "directory": "2010_07_21 Sunset Series -- Pictures From Mom",
+    "date": "2010-07-21",
+    "date_precision": "day",
+    "location": "Marina Del Rey, CA",
+    "lat": 33.977685,
+    "lon": -118.448647
+  },
+  {
+    "directory": "2010_07 Dodgers Baseball Game",
+    "date": "2010-07",
+    "date_precision": "month",
+    "location": "Dodger Stadium, Los Angeles, CA",
+    "lat": 34.073625,
+    "lon": -118.239845
+  },
+  {
+    "directory": "2010_07 Sailing Sunset Series",
+    "date": "2010-07",
+    "date_precision": "month",
+    "location": "Marina Del Rey, CA",
+    "lat": 33.977685,
+    "lon": -118.448647
+  },
+  {
+    "directory": "2010_08_21 Biking American River Trail",
+    "date": "2010-08-21",
+    "date_precision": "day",
+    "location": "American River Trail, Sacramento, CA",
+    "lat": 38.596097,
+    "lon": -121.452424
+  },
+  {
+    "directory": "2010_08_28-29 Harris Regatta",
+    "date": "2010-08-28",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2010_09_16 20 Weekend with GMA",
+    "date": "2010-09-16",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2010_09_27 Yosemite with Kris and Charla",
+    "date": "2010-09-27",
+    "date_precision": "day",
+    "location": "Yosemite, CA",
+    "lat": 37.8393,
+    "lon": -119.516464
+  },
+  {
+    "directory": "2010_09 -- Labor Day SF Bay",
+    "date": "2010-09",
+    "date_precision": "month",
+    "location": "San Francisco Bay, CA",
+    "lat": 37.714029,
+    "lon": -122.307794
+  },
+  {
+    "directory": "2010_10_01-06 Lassen and Oregon",
+    "date": "2010-10-01",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2010_10_10 Mt. Mugu Hike",
+    "date": "2010-10-10",
+    "date_precision": "day",
+    "location": "Pt. Mugu, CA",
+    "lat": 34.085414,
+    "lon": -119.060992
+  },
+  {
+    "directory": "2010_10_21 Biking to MASH set (Malibu Canyon State Park)",
+    "date": "2010-10-21",
+    "date_precision": "day",
+    "location": "Malibu Creek State Park, CA",
+    "lat": 34.083598,
+    "lon": -118.745333
+  },
+  {
+    "directory": "2010 Harris Regatta",
+    "date": "2010",
+    "date_precision": "year",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2010 LBRW",
+    "date": "2010",
+    "date_precision": "year",
+    "location": "Long Beach, CA",
+    "lat": 33.769016,
+    "lon": -118.191604
+  },
+  {
+    "directory": "2010 Sailfest Ventura",
+    "date": "2010",
+    "date_precision": "year",
+    "location": "Ventura, CA",
+    "lat": 34.445825,
+    "lon": -119.077936
+  },
+  {
+    "directory": "2010 Sunset",
+    "date": "2010",
+    "date_precision": "year",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2011.01.16 Hike to Echo Mountain",
+    "date": "2011-01-16",
+    "date_precision": "day",
+    "location": "Echo Mountain, CA",
+    "lat": 34.211069,
+    "lon": -118.120388
+  },
+  {
+    "directory": "2011_05_04-08 Mom and Nathan Visit to LA",
+    "date": "2011-05-04",
+    "date_precision": "day",
+    "location": "Los Angeles, CA",
+    "lat": 34.053691,
+    "lon": -118.242766
+  },
+  {
+    "directory": "2011_05_28 Kate's Wedding",
+    "date": "2011-05-28",
+    "date_precision": "day",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2011_05 Mom Visit",
+    "date": "2011-05",
+    "date_precision": "month",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "2021 Digitization Unsorted",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "98-00 Random",
+    "date": "1998-2000",
+    "date_precision": "range",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "A - Dad 80-02 Back Up",
+    "date": "1980-2002",
+    "date_precision": "range",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "B - Dad 80-02 Back Up",
+    "date": "1980-2002",
+    "date_precision": "range",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Berkeley College",
+    "date": null,
+    "date_precision": null,
+    "location": "Berkeley, CA",
+    "lat": 37.870839,
+    "lon": -122.272863
+  },
+  {
+    "directory": "Canada",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "C - Dad 80-02 From Kathy",
+    "date": "1980-2002",
+    "date_precision": "range",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "College",
+    "date": null,
+    "date_precision": null,
+    "location": "Berkeley, CA",
+    "lat": 37.870839,
+    "lon": -122.272863
+  },
+  {
+    "directory": "Cross Country 8-2001",
+    "date": "2001-08",
+    "date_precision": "month",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Dad",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "D - Dad 80-02 From Kathy",
+    "date": "1980-2002",
+    "date_precision": "range",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "From Mom",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "From Mom 80s",
+    "date": "1980-1989",
+    "date_precision": "range",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Growing Up Part 2",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "HeadShots",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "High School Debate",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Iowa - June 1994",
+    "date": "1994-06",
+    "date_precision": "month",
+    "location": "Iowa",
+    "lat": 41.921673,
+    "lon": -93.31227
+  },
+  {
+    "directory": "Julia and Nick's Wedding",
+    "date": null,
+    "date_precision": null,
+    "location": "Oakland Museum of California, Oakland, CA",
+    "lat": 37.798614,
+    "lon": -122.263604
+  },
+  {
+    "directory": "Lakers Pictures From Ray",
+    "date": null,
+    "date_precision": null,
+    "location": "Staples Center, Los Angeles, CA",
+    "lat": 34.042998,
+    "lon": -118.267135
+  },
+  {
+    "directory": "Mid 1980s Dad",
+    "date": "1983-1987",
+    "date_precision": "range",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Mom 85-89",
+    "date": "1985-1989",
+    "date_precision": "range",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Mountain Climbing Picture",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Nathan Tessa Nick",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Old",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Pics Camera Uploads",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Prague",
+    "date": null,
+    "date_precision": null,
+    "location": "Prague, Czech Republic",
+    "lat": 50.085011,
+    "lon": 14.426517
+  },
+  {
+    "directory": "RandomAllSpark",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Summer 1995",
+    "date": "1995",
+    "date_precision": "year",
+    "location": null,
+    "lat": null,
+    "lon": null
+  },
+  {
+    "directory": "Tahoe Rosses 2025",
+    "date": "2025",
+    "date_precision": "year",
+    "location": "Lake Tahoe, CA",
+    "lat": 39.088541,
+    "lon": -120.050353
+  },
+  {
+    "directory": "Year Long Disposable SD and Coachella",
+    "date": null,
+    "date_precision": null,
+    "location": null,
+    "lat": null,
+    "lon": null
+  }
+]

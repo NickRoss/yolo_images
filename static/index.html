@@ -9,63 +9,101 @@
 <body>
     <header>
         <h1>EXIF Location Tagger</h1>
-        <div class="health-indicators">
-            <span id="health-immich" class="health-dot unknown" title="Immich">Immich</span>
-            <span id="health-exiftool" class="health-dot unknown" title="Exiftool">Exiftool</span>
+        <div class="header-right">
+            <div class="health-indicators">
+                <span id="health-immich" class="health-dot unknown" title="Immich">Immich</span>
+                <span id="health-exiftool" class="health-dot unknown" title="Exiftool">Exiftool</span>
+            </div>
+            <button id="btn-logout" class="btn-logout">Logout</button>
         </div>
     </header>
 
-    <div class="controls">
-        <div class="location-panel">
-            <div class="search-group">
-                <label>Search location</label>
-                <div class="search-wrapper">
-                    <input type="text" id="location-search" placeholder="Type to search..." autocomplete="off">
-                    <div id="search-results" class="dropdown hidden"></div>
+    <nav class="tabs">
+        <button class="tab active" data-tab="tagger">Tagger</button>
+        <button class="tab" data-tab="audit">Audit Log</button>
+        <button class="tab" data-tab="batch">Batch Tag</button>
+    </nav>
+
+    <div id="tab-tagger" class="tab-content active">
+        <div id="dir-filter-banner" class="dir-filter-banner hidden">
+            <span>Filtering: <strong id="dir-filter-name"></strong></span>
+            <button id="btn-clear-filter">Show all photos</button>
+        </div>
+        <div class="controls">
+            <div class="location-panel">
+                <div class="search-group">
+                    <label>Search location</label>
+                    <div class="search-wrapper">
+                        <input type="text" id="location-search" placeholder="Type to search..." autocomplete="off">
+                        <div id="search-results" class="dropdown hidden"></div>
+                    </div>
+                </div>
+
+                <div class="saved-group">
+                    <label>Saved locations</label>
+                    <div class="saved-wrapper">
+                        <select id="saved-locations">
+                            <option value="">-- select --</option>
+                        </select>
+                        <button id="btn-delete-saved" title="Remove selected saved location">&times;</button>
+                    </div>
+                </div>
+
+                <div class="coords-group">
+                    <label>Lat</label>
+                    <input type="number" id="lat" step="any" placeholder="0.0">
+                    <label>Lon</label>
+                    <input type="number" id="lon" step="any" placeholder="0.0">
+                </div>
+
+                <div class="save-group">
+                    <input type="text" id="save-name" placeholder="Save as...">
+                    <button id="btn-save-location">Save</button>
+                </div>
+
+                <div class="action-group">
+                    <button id="btn-apply" disabled>Apply to 0 selected</button>
+                    <button id="btn-delete" disabled>Delete 0 selected</button>
                 </div>
             </div>
 
-            <div class="saved-group">
-                <label>Saved locations</label>
-                <div class="saved-wrapper">
-                    <select id="saved-locations">
-                        <option value="">— select —</option>
-                    </select>
-                    <button id="btn-delete-saved" title="Remove selected saved location">&times;</button>
-                </div>
-            </div>
-
-            <div class="coords-group">
-                <label>Lat</label>
-                <input type="number" id="lat" step="any" placeholder="0.0">
-                <label>Lon</label>
-                <input type="number" id="lon" step="any" placeholder="0.0">
-            </div>
-
-            <div class="save-group">
-                <input type="text" id="save-name" placeholder="Save as...">
-                <button id="btn-save-location">Save</button>
-            </div>
-
-            <div class="action-group">
-                <button id="btn-apply" disabled>Apply to 0 selected</button>
-                <button id="btn-delete" disabled>Delete 0 selected</button>
+            <div class="selection-bar">
+                <button id="btn-select-all">Select all</button>
+                <button id="btn-deselect-all">Deselect all</button>
+                <span id="status-text"></span>
             </div>
         </div>
 
-        <div class="selection-bar">
-            <button id="btn-select-all">Select all</button>
-            <button id="btn-deselect-all">Deselect all</button>
-            <span id="status-text"></span>
+        <div id="grid" class="grid"></div>
+
+        <div class="pagination">
+            <button id="btn-prev" disabled>&larr; Previous</button>
+            <span id="page-info">Page 1</span>
+            <button id="btn-next">Next &rarr;</button>
         </div>
     </div>
 
-    <div id="grid" class="grid"></div>
+    <div id="tab-audit" class="tab-content">
+        <div id="audit-log"></div>
+        <div class="pagination">
+            <button id="audit-prev" disabled>&larr; Previous</button>
+            <span id="audit-page-info">Page 1</span>
+            <button id="audit-next">Next &rarr;</button>
+        </div>
+    </div>
 
-    <div class="pagination">
-        <button id="btn-prev" disabled>&larr; Previous</button>
-        <span id="page-info">Page 1</span>
-        <button id="btn-next">Next &rarr;</button>
+    <div id="tab-batch" class="tab-content">
+        <div class="batch-controls">
+            <div class="batch-filter">
+                <label>Show:</label>
+                <select id="batch-filter">
+                    <option value="with-location">With location only</option>
+                    <option value="all">All directories</option>
+                    <option value="no-location">Without location</option>
+                </select>
+            </div>
+        </div>
+        <div id="batch-list"></div>
     </div>
 
     <div id="progress-overlay" class="progress-overlay hidden">

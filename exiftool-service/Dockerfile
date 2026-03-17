@@ -11,6 +11,6 @@ RUN uv sync --no-dev
 
 COPY server.py .
 
-EXPOSE 8050
+EXPOSE 8051
 
-CMD ["uv", "run", "uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8050"]
+CMD ["uv", "run", "uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8051"]

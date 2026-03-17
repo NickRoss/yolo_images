@@ -2,14 +2,11 @@ services:
   exiftool:
     build: .
     ports:
-      - "8050:8050"
+      - "8051:8051"
     env_file:
       - ../.env
     environment:
       - ALLOWED_BASE=/mnt/barracuda/plex/Personal/Photos/Import-Staging
     volumes:
       - /mnt/barracuda/plex/Personal/Photos/Import-Staging:/mnt/barracuda/plex/Personal/Photos/Import-Staging
-      - exiftool-data:/data
-
-volumes:
-  exiftool-data:
+      - /home/media/plex_file_work/migration/copy_progress.db:/data/copy_progress.db

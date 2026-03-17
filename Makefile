@@ -1,20 +1,20 @@
-.PHONY: frontend-up frontend-down frontend-logs screenshot server-up server-down server-logs
+.PHONY: up down logs screenshot server-up server-down server-logs
 
-frontend-up:
+up:
 	docker compose up --build -d
 
-frontend-down:
+down:
 	docker compose down
 
-frontend-logs:
+logs:
 	docker compose logs -f
 
-screenshot: frontend-up
+screenshot: up
 	mkdir -p docs
 	docker run --rm --network host -v $(PWD)/docs:/screenshots \
 		mcr.microsoft.com/playwright:v1.58.2-noble \
 		npx playwright screenshot --full-page --wait-for-timeout 5000 \
-		--viewport-size 1280,800 http://localhost:8000 /screenshots/grid-view.png
+		--viewport-size 1280,800 http://localhost:8050 /screenshots/grid-view.png
 
 server-up:
 	docker compose -f exiftool-service/docker-compose.yml up --build -d

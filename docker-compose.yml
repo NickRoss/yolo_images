@@ -2,8 +2,30 @@ services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      - "8050:8050"
     env_file:
       - .env
+    depends_on:
+      - exiftool
+    restart: unless-stopped
     volumes:
       - ./saved_locations.json:/app/saved_locations.json
+      - ./directory_metadata.json:/app/directory_metadata.json
+      - /home/media/plex_file_work/migration/audit.db:/data/audit.db
+      - /home/media/plex_file_work/migration/copy_progress.db:/data/copy_progress.db:ro
+      - /mnt/barracuda/plex/Personal/Photos/Import-Staging:/mnt/barracuda/plex/Personal/Photos/Import-Staging:ro
+
+  exiftool:
+    build: ./exiftool-service
+    ports:
+      - "127.0.0.1:8051:8051"
+    env_file:
+      - .env
+    restart: unless-stopped
+    environment:
+      - ALLOWED_BASE=/mnt/barracuda/plex/Personal/Photos/Import-Staging
+      - TRASH_DIR=/mnt/barracuda/plex/Personal/Photos/_trash
+    volumes:
+      - /mnt/barracuda/plex/Personal/Photos:/mnt/barracuda/plex/Personal/Photos
+      - /home/media/plex_file_work/migration/copy_progress.db:/data/copy_progress.db
+
